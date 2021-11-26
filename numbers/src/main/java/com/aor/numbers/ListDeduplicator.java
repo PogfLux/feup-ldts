@@ -9,9 +9,19 @@ import java.util.List;
  */
 public class ListDeduplicator implements GenericListDeduplicator{
 
-    @Override
-    public List<Integer> deduplicate(List<Integer> list) {
-        return null;
+    public List<Integer> deduplicate(List<Integer> list, GenericListSorter listSorter) {
+        List<Integer> sorted = listSorter.sort(list);
+        List<Integer> unique = new ArrayList<>();
+
+        Integer last = null;
+
+        for (Integer number : sorted)
+            if (!number.equals(last)) {
+                last = number;
+                unique.add(number);
+            }
+
+        return unique;
     }
 
     /**
@@ -20,8 +30,8 @@ public class ListDeduplicator implements GenericListDeduplicator{
      * but without duplicates. The order of the numbers might
      * change.
      */
-
-    public List<Integer> deduplicate(List<Integer> list, GenericListSorter listSorter) {
+    public List<Integer> deduplicate(List<Integer> list) {
+        ListSorter listSorter = new ListSorter();
         List<Integer> sorted = listSorter.sort(list);
         List<Integer> unique = new ArrayList<>();
 

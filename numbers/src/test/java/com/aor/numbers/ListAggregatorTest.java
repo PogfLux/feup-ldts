@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ListAggregatorTest {
-private List<Integer> list;
+    private List<Integer> list;
 
     @BeforeEach
     private void helper() {
@@ -43,7 +43,7 @@ private List<Integer> list;
     @Test
     public void distinct() {
 
-        class StubListDuplicator implements GenericListDeduplicator{
+        class StubListDeduplicator implements GenericListDeduplicator {
             @Override
             public List<Integer> deduplicate(List<Integer> list){
                 return Arrays.asList(1, 2, 4);
@@ -51,7 +51,7 @@ private List<Integer> list;
         }
 
         ListAggregator aggregator = new ListAggregator();
-        StubListDuplicator deduplicator = new StubListDuplicator();
+        StubListDeduplicator deduplicator = new StubListDeduplicator();
         int distinct = aggregator.distinct(list, deduplicator);
 
         Assertions.assertEquals(3, distinct);

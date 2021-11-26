@@ -8,15 +8,14 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ListSorterTest {
-
     private List<Integer> list; private List<Integer> expected;
 
     @BeforeEach
-    private void helper() {
+    private void helper(){
         list = Arrays.asList(1, 2, 4, 2);
         expected = Arrays.asList(1, 2, 2, 4);
-
     }
+
 
     @Test
     public void sort() {
