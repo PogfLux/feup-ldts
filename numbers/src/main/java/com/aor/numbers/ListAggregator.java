@@ -2,6 +2,7 @@ package com.aor.numbers;
 
 import java.util.List;
 
+
 /**
  * A utility class that aggregates list of numbers
  * into a single integer using various functions.
