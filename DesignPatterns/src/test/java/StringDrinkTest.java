@@ -1,9 +1,10 @@
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class StringDrinkTest {
 
@@ -99,8 +100,57 @@ public class StringDrinkTest {
         transformers3.add(tg1);
         transformers3.add(tg2);
         StringRecipe recipe = new StringRecipe(transformers3);
-        
+
         recipe.mix(drink);
         assertEquals("DcBx-dCbA", drink.getText());
+    }
+
+    @Test
+    public void happyHour() {
+        Bar bar = new StringBar();
+        assertFalse(bar.isHappyHour());
+
+        bar.startHappyHour();
+        assertTrue(bar.isHappyHour());
+
+        bar.endHappyHour();
+        assertFalse(bar.isHappyHour());
+    }
+
+    @Test
+    public void addObserver() {
+        Bar bar = new StringBar();
+        HumanClient clientMock = Mockito.mock(HumanClient.class);
+
+        bar.addObserver(clientMock);
+        Mockito.verify(clientMock,
+                Mockito.never()).happyHourStarted(bar);
+        Mockito.verify(clientMock,
+                Mockito.never()).happyHourEnded(bar);
+        bar.startHappyHour();
+        Mockito.verify(clientMock,
+                Mockito.times(1)).happyHourStarted(bar);
+        Mockito.verify(clientMock,
+                Mockito.never()).happyHourEnded(bar);
+        bar.endHappyHour();
+        Mockito.verify(clientMock,
+                Mockito.times(1)).happyHourStarted(bar);
+        Mockito.verify(clientMock,
+                Mockito.times(1)).happyHourEnded(bar);
+    }
+
+    @Test
+    public void removeObserver() {
+        Bar bar = new StringBar();
+        HumanClient clientMock = Mockito.mock(HumanClient.class);
+
+        bar.addObserver(clientMock);
+        bar.removeObserver(clientMock);
+        bar.startHappyHour();
+        bar.endHappyHour();
+        Mockito.verify(clientMock,
+                Mockito.never()).happyHourStarted(bar);
+        Mockito.verify(clientMock,
+                Mockito.never()).happyHourEnded(bar);
     }
 }
