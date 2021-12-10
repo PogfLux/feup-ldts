@@ -18,22 +18,21 @@ public class Order {
         double total = 0;
 
         for (OrderLine line : lines)
-            total += line.product.getPrice() * line.quantity;
+            total += line.getTotal();
 
-        if (total > 100) return true;
-        else return false;
+        return (total > 100);
     }
 
     public String printOrder() {
         StringBuffer printBuffer = new StringBuffer();
 
         for (OrderLine line : lines)
-            printBuffer.append(line.product.getName() + "(x" + line.quantity + "): " + (line.product.getPrice() * line.quantity) + "\n");
+            printBuffer.append(line.getOutput() + '\n');
 
         double total = 0;
 
         for (OrderLine line : lines)
-            total += line.product.getPrice() * line.quantity;
+            total += line.getTotal();
 
         printBuffer.append("Total: " + total);
 
