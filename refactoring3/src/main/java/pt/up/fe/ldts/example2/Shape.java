@@ -15,8 +15,6 @@ public abstract class Shape {
     public void setY(double newY) { this.y = newY; }
 
     public abstract double getArea() throws Exception;
-
     public abstract double getPerimeter() throws Exception;
-
     public abstract void draw(GraphicFramework graphics);
 }
